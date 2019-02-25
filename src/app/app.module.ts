@@ -8,22 +8,24 @@ import {HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
 import {UsersService} from './shared/services/users.service';
 import {AuthService} from './shared/services/auth.service';
+import {SystemModule} from './system/system.module';
 
 @NgModule({
-    declarations: [
-        AppComponent
-    ],
-    imports: [
-        BrowserModule,
-        AuthModule,
-        HttpClientModule,
-        AppRoutingModule
-    ],
-    providers: [
-      UsersService,
-      AuthService
-    ],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    AuthModule,
+    HttpClientModule,
+    AppRoutingModule,
+    SystemModule
+  ],
+  providers: [
+    UsersService,
+    AuthService
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }
