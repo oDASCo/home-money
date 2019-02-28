@@ -1,15 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Bill} from "../../shared/models/bill.model";
 
 @Component({
-  selector: 'dasc-bill-card',
-  templateUrl: './bill-card.component.html',
-  styleUrls: ['./bill-card.component.scss']
+    selector: 'dasc-bill-card',
+    templateUrl: './bill-card.component.html',
+    styleUrls: ['./bill-card.component.scss']
 })
 export class BillCardComponent implements OnInit {
 
-  constructor() { }
 
-  ngOnInit() {
-  }
+    @Input() bill: Bill;
+    @Input() currency: any;
+
+    dollar: number;
+    rub: number;
+
+    constructor() {
+    }
+
+    ngOnInit() {
+        const {rates} = this.currency;
+        this.dollar = rates['USD'] * this.bill.value;
+        this.rub = rates['RUB'] * this.bill.value;
+    }
 
 }
