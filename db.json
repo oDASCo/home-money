@@ -14,7 +14,7 @@
     }
   ],
   "bill": {
-    "value": 1500,
+    "value": 96900,
     "currency": "EUR"
   },
   "categories": [
@@ -32,11 +32,6 @@
       "id": 3,
       "name": "Машина",
       "capacity": 7000
-    },
-    {
-      "name": "Новая45",
-      "capacity": 123232,
-      "id": 4
     }
   ],
   "events": [
@@ -79,6 +74,30 @@
       "date": "10.06.2017 14:01:58",
       "id": 5,
       "description": "Заправка + проход ТО"
+    },
+    {
+      "type": "outcome",
+      "amount": 1200,
+      "category": 3,
+      "date": "03.03.2019 14:16:30",
+      "description": "test",
+      "id": 6
+    },
+    {
+      "type": "outcome",
+      "amount": 100,
+      "category": 3,
+      "date": "03.03.2019 14:30:19",
+      "description": "rrr",
+      "id": 7
+    },
+    {
+      "type": "outcome",
+      "amount": 1800,
+      "category": 3,
+      "date": "03.03.2019 14:31:01",
+      "description": "7",
+      "id": 8
     }
   ]
 }

@@ -1,31 +1,40 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {CategoriesService} from "../../shared/services/categories.service";
 import {Category} from "../../shared/models/category.model";
+import {Subscription} from "rxjs";
 
 @Component({
-    selector: 'dasc-add-category',
-    templateUrl: './add-category.component.html',
-    styleUrls: ['./add-category.component.scss']
+  selector: 'dasc-add-category',
+  templateUrl: './add-category.component.html',
+  styleUrls: ['./add-category.component.scss']
 })
-export class AddCategoryComponent{
+export class AddCategoryComponent implements OnDestroy {
+  sub1: Subscription;
 
-    @Output() onCategoryAdd = new EventEmitter<Category>();
+  @Output() onCategoryAdd = new EventEmitter<Category>();
 
-    constructor(private categoriesService: CategoriesService) {
+  constructor(private categoriesService: CategoriesService) {
+  }
+
+  onSubmit(form: NgForm) {
+    let {name, capacity} = form.value;
+
+    if (capacity < 0) {
+      capacity *= -1;
     }
-    onSubmit(form: NgForm) {
-        let {name, capacity} = form.value;
+    const category = new Category(name, capacity);
 
-        if (capacity < 0) {
-            capacity *= -1;
-        }
-        const category = new Category(name, capacity);
+    this.sub1 = this.categoriesService.addCategory(category).subscribe((category: Category) => {
+      form.reset();
+      form.form.patchValue({capacity: 1});
+      this.onCategoryAdd.emit(category);
+    });
+  }
 
-        this.categoriesService.addCategory(category).subscribe((category: Category) => {
-            form.reset();
-            form.form.patchValue({capacity: 1});
-            this.onCategoryAdd.emit(category);
-        });
+  ngOnDestroy() {
+    if (this.sub1) {
+      this.sub1.unsubscribe();
     }
+  }
 }

@@ -7,12 +7,15 @@ import {DASCEvent} from "../models/event.model";
 
 @Injectable()
 export class EventsService extends BaseApi {
-    constructor(public http: HttpClient) {
-        super(http);
-    }
+  constructor(public http: HttpClient) {
+    super(http);
+  }
 
-    addEvent(event: DASCEvent): Observable<DASCEvent> {
-        return this.post('events', event);
-    }
+  addEvent(event: DASCEvent): Observable<DASCEvent> {
+    return this.post('events', event);
+  }
 
+  getEvents(): Observable<DASCEvent[]> {
+      return this.get('events');
+  }
 }
