@@ -5,6 +5,7 @@ import {User} from '../../shared/models/user.model';
 import {Message} from '../../shared/models/message.model';
 import {AuthService} from '../../shared/services/auth.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
+import {Meta, Title} from "@angular/platform-browser";
 
 @Component({
     selector: 'dasc-login',
@@ -19,8 +20,13 @@ export class LoginComponent implements OnInit {
     constructor(private usersService: UsersService,
                 private authService: AuthService,
                 private router: Router,
-                private route: ActivatedRoute) {
-
+                private route: ActivatedRoute,
+                private title: Title,
+                private meta: Meta) {
+        title.setTitle('Вход в систему');
+        meta.addTags([
+            {name: 'keywords', content: 'логин, вход, система'}
+        ]);
     }
 
     ngOnInit() {
@@ -28,6 +34,8 @@ export class LoginComponent implements OnInit {
         this.route.queryParams.subscribe((params: Params) => {
             if (params['nowCanLogin']) {
                 this.showMessage({text: 'Теперь вы можете зайти в систему', type: 'success'});
+            } else if (params['accessDenied']) {
+                this.showMessage({text: 'Для работы с системой вам нужно войти', type: 'warning'});
             }
         });
 
@@ -57,12 +65,16 @@ export class LoginComponent implements OnInit {
                         this.authService.login();
                         this.router.navigate(['/system', 'bill']);
                     } else {
-                        this.showMessage({text: 'Пароль неверный',
-                        type: 'danger'});
+                        this.showMessage({
+                            text: 'Пароль неверный',
+                            type: 'danger'
+                        });
                     }
                 } else {
-                    this.showMessage({text: 'Такого пользователя не существует',
-                        type: 'danger'});
+                    this.showMessage({
+                        text: 'Такого пользователя не существует',
+                        type: 'danger'
+                    });
                 }
             });
     }

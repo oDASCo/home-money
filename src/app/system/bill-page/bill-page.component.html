@@ -10,7 +10,7 @@
 </div>
 <section class="section">
   <div class="row text-center" *ngIf="!isLoaded">
-    Loading...
+    <dasc-loader></dasc-loader>
   </div>
   <div class="row" *ngIf="isLoaded">
     <dasc-bill-card [bill]="bill" [currency]="currency"></dasc-bill-card>

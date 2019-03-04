@@ -1,14 +1,25 @@
 <div class="title-block">
-  <h3 class="title">
-    Страница истории <span class="sparkline bar"></span>
-  </h3>
+    <h3 class="title pull-left">
+        Страница истории <span class="sparkline bar"></span>
+    </h3>
+    <div class="pull-right">
+        <button class="btn-sm btn btn-primary-outline" (click)="openFilter()">
+            <i class="fa fa-filter"></i>
+        </button>
+    </div>
 </div>
-<div *ngIf="!isLoaded" class="text-center">Loading...</div>
+<div *ngIf="!isLoaded" class="text-center"><dasc-loader></dasc-loader></div>
 <div *ngIf="isLoaded">
-  <dasc-history-chart [data]="chartData"></dasc-history-chart>
+    <dasc-history-chart [data]="chartData"></dasc-history-chart>
 
-  <dasc-history-events [categories]="categories" [events]="events"></dasc-history-events>
+    <dasc-history-events [categories]="categories" [events]="filteredEvents"></dasc-history-events>
+    <div *ngIf="isFilterVisible">
+        <dasc-history-filter
+                (onFilterApply)="onFilterApply($event)"
+                (onFilterCancel)="onFilterCancel()"
+                [categories]="categories"
+        ></dasc-history-filter>
+    </div>
 
-  <dasc-history-filter></dasc-history-filter>
 </div>
 

@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UsersService} from '../../shared/services/users.service';
 import {User} from '../../shared/models/user.model';
 import {Router} from '@angular/router';
+import {Meta, Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'dasc-registration',
@@ -14,7 +15,13 @@ export class RegistrationComponent implements OnInit {
   form: FormGroup;
 
   constructor(private usersService: UsersService,
-              private router: Router) {
+              private router: Router,
+              private title: Title,
+              private meta: Meta) {
+      title.setTitle('Регистрация');
+      meta.addTags([
+          {name: 'keywords', content: 'регистрация, система'}
+      ]);
   }
 
   ngOnInit() {

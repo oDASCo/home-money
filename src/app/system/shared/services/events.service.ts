@@ -18,4 +18,7 @@ export class EventsService extends BaseApi {
   getEvents(): Observable<DASCEvent[]> {
       return this.get('events');
   }
+  getEventById (id:string): Observable<DASCEvent> {
+    return this.get(`events/${id}`);
+  }
 }
